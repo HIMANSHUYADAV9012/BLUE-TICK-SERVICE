@@ -893,9 +893,12 @@ fetchBtn.addEventListener("click", async (e) => {
       '<i class="fas fa-spinner fa-spin"></i> Checking...';
     fetchBtn.disabled = true;
 
-    const response = await fetch(
-      `http://127.0.0.1:8000/instagram/${username.toLowerCase()}`
-    );
+  const response = await fetch(`https://8725-185-177-125-213.ngrok-free.app/instagram/${username}`, {
+  headers: {
+    'ngrok-skip-browser-warning': 'true'
+  }
+});
+
 
     if (!response.ok) {
       const errorData = await response.json();
