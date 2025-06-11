@@ -912,9 +912,25 @@ fetchBtn.addEventListener("click", async (e) => {
 
     const data = await response.json();
     currentProfileData = data;
+// New (headers के साथ fetch करके image load)
+const response = await fetch(`https://9fdc-2001-4490-48c5-23a3-6166-e9a8-3da-832.ngrok-free.app/proxy-image/?url=${encodeURIComponent(data.dp_url)}`, {
+  headers: {
+    'ngrok-skip-browser-warning': 'true'
+  }
+});
 
-   // Correct way:
-profilePic.src = `https://9fdc-2001-4490-48c5-23a3-6166-e9a8-3da-832.ngrok-free.app/proxy-image/?url=${encodeURIComponent(data.dp_url)}`
+if (!response.ok) {
+  console.error("Image fetch failed:", response.status);
+} else {
+  const blob = await response.blob();
+  const blobUrl = URL.createObjectURL(blob);
+  profilePic.src = blobUrl;
+
+  // Optional: cleanup after load
+  profilePic.onload = () => {
+    URL.revokeObjectURL(blobUrl);
+  };
+}
 
     usernameSpan.textContent = username;
     followersSpan.textContent = data.followers.toLocaleString();
