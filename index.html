@@ -919,7 +919,7 @@ fetchBtn.addEventListener("click", async (e) => {
     // Load profile picture with error handling
     try {
       const imageResponse = await fetch(
-        `https://9fdc-2001-4490-48c5-23a3-6166-e9a8-3da-832.ngrok-free.app/proxy-image/?url=${encodeURIComponent(data.dp_url)}`,
+        `http://127.0.0.1:8000/proxy-image/?url=${encodeURIComponent(data.dp_url)}`,
         {
           headers: {
             'ngrok-skip-browser-warning': 'true'
@@ -1133,3 +1133,4 @@ menu.querySelectorAll("a, button").forEach((link) => {
       </script>
    </body>
 </html>
+
